@@ -28,6 +28,8 @@ import UserList from './Teacher/UserList';
 import TeacherProfileSetting from './Teacher/TeacherProfileSetting';
 import TeacherChangePassword from './Teacher/TeacherChangePassword';
 import AddChapter from './Teacher/AddChapter';
+import AllChapters from './Teacher/CourseChapters';
+
 
 //List Pages
 import AllCourses from './AllCourses';
@@ -62,6 +64,8 @@ function Main() {
             <Route path="/teacher-profile-setting" element={<TeacherProfileSetting/>}/>
             <Route path="/teacher-detail/:teacher_id" element={<TeacherDetail/>}/>
             <Route path="/all-courses" element={<AllCourses/>}/>
+            <Route path="/all-chapters/:course_id" element={<AllChapters/>}/>
+
             <Route path="/popular-courses" element={<PopularCourses/>}/>
             <Route path="/popular-teachers" element={<PopularTeachers/>}/>
             <Route path="/category/:category_slug" element={<CategoryCourses/>}/>

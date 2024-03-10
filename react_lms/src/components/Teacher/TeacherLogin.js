@@ -9,6 +9,8 @@ function TeacherLogin(){
         email:'',
         password:''
     });
+
+    const[errorMsg, seterrorMsg] = useState('');
     const handleChange=(event)=>{
         setteacherLoginData({
             ...teacherLoginData,
@@ -17,16 +19,18 @@ function TeacherLogin(){
     }
 
 const submitForm=()=>{
-    const teacherFormData = new FormData;
+    const teacherFormData = new FormData();
     teacherFormData.append('email',teacherLoginData.email)
     teacherFormData.append('password',teacherLoginData.password)
 
     try{
         axios.post(baseUrl+'/teacher-login',teacherFormData).then((res)=>{
-                if(res.data.bool=true){
+                if(res.data.bool==true){
                     localStorage.setItem('teacherLoginStatus',true);
+                    localStorage.setItem('teacherId',res.data.teacher_id);                  
                     window.location.href='/teacher-dashboard';
-
+                }else{
+                    seterrorMsg('Invalid Email or Password!')
                 }
             }); 
     }catch(error){
@@ -52,7 +56,9 @@ useEffect(()=>{
                     <div className='card'>
                         <h5 className='card-header text-start'>Teacher Login</h5>
                         <div className='card-body text-start'>
-                        <form>
+                        
+                        {errorMsg && <p className='text-danger'>{errorMsg}</p>}
+
                             <div className="mb-3">
                                 <label for="exampleInputEmail1" className="form-label">Email</label>
                                 <input name='email' onChange={handleChange} value={teacherLoginData.email} type="email" className="form-control" />
@@ -66,7 +72,7 @@ useEffect(()=>{
                                 <label className="form-check-label" for="exampleCheck1">Remember Me</label>
                             </div> */}
                             <button onClick={submitForm} type="submit" className="btn btn-primary">Login</button>
-                            </form>
+                            
                         </div>
                     </div>
                 </div>
