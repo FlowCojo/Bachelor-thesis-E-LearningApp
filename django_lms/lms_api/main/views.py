@@ -58,6 +58,11 @@ class ChapterList(generics.ListCreateAPIView):
     queryset=models.Chapter.objects.all()
     serializer_class = ChapterSerializer
 
+#Specific Chapter
+class ChapterDetailView(generics.RetrieveUpdateDestroyAPIView):
+    queryset=models.Chapter.objects.all()
+    serializer_class = ChapterSerializer
+
 
 class CourseChapterList(generics.ListAPIView):
     serializer_class = ChapterSerializer

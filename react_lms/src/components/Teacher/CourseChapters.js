@@ -29,16 +29,40 @@ function CourseChapters() {
 
     //Delete Data
     const Swal = require('sweetalert2');
-    const handleDeleteClick = () =>{
+    const handleDeleteClick = (chapter_id) =>{
         Swal.fire({
             title: "Confirm ",
             text: "Are you sure you want to delete this?",
             icon: "info",
             confirmButtonText: 'Continue',
             showCancelButton: true
+        }).then((result)=>{
+            if(result.isConfirmed){
+                try{
+                    axios.delete(baseUrl+'/chapter/'+chapter_id)
+                    .then((res)=>{
+                        
+                        Swal.fire('success', 'Data has been deleted.');   
+
+                        try{
+                            axios.get(baseUrl+'/course-chapters/'+course_id).then((res)=>{
+                                setchapterData(res.data);
+                                settotalResult(res.data.length);
+                                }); 
+                        }catch(error){
+                            console.log(error);
+                        }
+                       
+                        
+                    });
+                }catch(error){
+                    Swal.fire('error', 'Data has not been deleted!');   
+                }
+            }else{
+                Swal.fire('error', 'Data has not been deleted!');   
+            }
         });
     }
-
     return(
     
         <div className='container mt-4 '>
@@ -72,7 +96,7 @@ function CourseChapters() {
                                         <td>{chapter.remarks}</td>
                                         <td>
                                             <Link to={'/edit-chapter/'+chapter.id} className='btn btn-sm text-white btn-info  '><i class="bi bi-pencil-square">Edit</i></Link>
-                                            <button onClick={handleDeleteClick} to={'/delete-chapter/'+chapter.id} className='btn btn-sm btn-danger ms-1'><i class="bi bi-trash">Delete</i></button>
+                                            <button onClick={()=>handleDeleteClick(chapter.id)} className='btn btn-sm btn-danger ms-1'><i class="bi bi-trash">Delete</i></button>
 
                                         </td>
                                     </tr>
@@ -85,6 +109,7 @@ function CourseChapters() {
             </div>
         </div>  
     );
+    
 }
 
 export default CourseChapters;
