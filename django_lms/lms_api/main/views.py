@@ -51,7 +51,13 @@ class TeacherCourseList(generics.ListAPIView):
         teacher_id = self.kwargs['teacher_id']
         teacher=models.Teacher.objects.get(pk=teacher_id)
         return models.Course.objects.filter(teacher=teacher)
+
     
+class TeacherCourseDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset=models.Course.objects.all()
+    serializer_class = CourseSerializer
+
+  
 
 #Chapter
 class ChapterList(generics.ListCreateAPIView):

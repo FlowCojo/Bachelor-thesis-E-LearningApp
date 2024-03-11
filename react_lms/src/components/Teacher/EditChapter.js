@@ -98,7 +98,7 @@ function EditChapter(){
                 </aside>
                 <section className='col-md-9'>
                     <div className='card'>
-                        <h5 className='card-header text-start'>Update Chapter </h5>
+                        <h5 className='card-header text-start'>Edit Chapter </h5>
                         <div className='card-body'>
                             <div className="mb-3 row">
                                 <label for="title" className="col-sm-2 col-form-label text-start">Title</label>
